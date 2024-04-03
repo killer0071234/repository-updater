@@ -16,10 +16,10 @@ fi
   && options+=(--force)
 
 if [[ -n "${GITHUB_ACTOR:-}" ]]; then
-  git config --global user.name "${GITHUB_ACTOR}"
+  exec git config --global user.name "${GITHUB_ACTOR}"
 
 if [[ -n "${GITHUB_ACTOR_ID:-}" ]]; then
-  git config --global user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
+  exec git config --global user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
 
 # Output version
 repository-updater --version
