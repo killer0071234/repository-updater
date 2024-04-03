@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 declare -a options
 
 options+=(--token "${INPUT_TOKEN:-}")
