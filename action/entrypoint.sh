@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 declare -a options
 
 options+=(--token "${INPUT_TOKEN:-}")
@@ -16,10 +16,10 @@ fi
   && options+=(--force)
 
 if [[ -n "${GITHUB_ACTOR:-}" ]]; then
-  /bin/sh git config --global user.name "${GITHUB_ACTOR}"
+  exec git config --global user.name "${GITHUB_ACTOR}"
 
 if [[ -n "${GITHUB_ACTOR_ID:-}" ]]; then
-  /bin/sh git config --global user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
+  exec git config --global user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
 
 # Output version
 repository-updater --version
