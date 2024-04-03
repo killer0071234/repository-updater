@@ -3,6 +3,7 @@ FROM python:3.11-alpine3.18
 # Setup base
 RUN \
     apk add --no-cache \
+        bash \
         git \
     \
     && pip3 install \
