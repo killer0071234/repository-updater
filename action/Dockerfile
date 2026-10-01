@@ -10,7 +10,7 @@ RUN \
         --no-cache-dir \
         --prefer-binary \
         --find-links "https://wheels.home-assistant.io/musllinux/" \
-        "repository-updater @ git+https://github.com/killer0071234/repository-updater@a4b652513fc4aee93700b1d2c727813fc9466df6"
+        "repository-updater @ git+https://github.com/killer0071234/repository-updater@11f2cc8eed0c84a2cade458d652b9ab2e7b81a0f"
 
 COPY entrypoint.sh /entrypoint.sh
 
