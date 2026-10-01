@@ -243,13 +243,18 @@ class App:
     def _load_latest_info(self) -> None:
         """Determine latest available app version and config."""
         for release in self.app_repository.get_releases():
-            self.latest_version = release.tag_name.lstrip("v")
-            prerelease = (
-                release.prerelease
-                or semver.parse_version_info(self.latest_version).prerelease
-            )
-            if release.draft or (prerelease and self.config.channel != CHANNEL_BETA):
+            if release.draft:
                 continue
+            version = release.tag_name.lstrip("v")
+            try:
+                parsed_version = semver.Version.parse(version)
+            except ValueError:
+                # Skip releases without a valid SemVer tag
+                continue
+            prerelease = release.prerelease or parsed_version.prerelease
+            if prerelease and self.config.channel != CHANNEL_BETA:
+                continue
+            self.latest_version = version
             self.latest_release = release
             break
 
