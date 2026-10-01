@@ -32,10 +32,11 @@ class GitHub(PyGitHub):
 
         repo = Repo.clone_from(repository.clone_url, destination, None, environ)
 
-        config = repo.config_writer()
-        if self.get_user().email:
-            config.set_value("user", "email", self.get_user().email)
-        config.set_value("user", "name", self.get_user().name)
-        config.set_value("commit", "gpgsign", "false")
+        user = self.get_user()
+        email = user.email or f"{user.id}+{user.login}@users.noreply.github.com"
+        with repo.config_writer() as config:
+            config.set_value("user", "email", email)
+            config.set_value("user", "name", user.name or user.login)
+            config.set_value("commit", "gpgsign", "false")
 
         return repo
